@@ -1,0 +1,59 @@
+<form class="row g-3 needs-validation border p-3" novalidate [formGroup]="form">
+  <div class="col-md-6">
+    <label for="nome" class="form-label">Primeiro Nome</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nome"
+      placeholder="Primeiro Nome"
+      formControlName="nome"
+      [ngClass]="{ 'is-invalid': submitted && hasError('nome') }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="hasError('nome') && hasError('nome')!['required']"
+    >
+      Por favor informe um nome para o curso.
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="hasError('nome')! && hasError('nome')!['minlength']"
+    >
+      O nome informado precisa ter mais de 3 caracteres.
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="hasError('nome')! && hasError('nome')!['maxlength']"
+    >
+      O nome informado precisa ter menos de 250 caracteres.
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="sobrenome" class="form-label">Sobrenome</label>
+    <input
+      type="text"
+      class="form-control"
+      id="sobrenome"
+      placeholder="Sobrenome"
+      formControlName="sobrenome"
+      [ngClass]="{ 'is-invalid': submitted && hasError('sobrenome') }"
+    />
+    <div class="invalid-feedback">Looks good!</div>
+  </div>
+
+  <div class="col-md-6">
+    <button
+      class="btn btn-primary mt-2 float-right btn-lg"
+      (click)="onSubmit()"
+    >
+      Enviar
+    </button>
+  </div>
+
+  <div class="col-md-6">
+    <button class="btn btn-info mt-2 btn-lg" (click)="onCancel()">
+      Cancelar
+    </button>
+  </div>
+</form>
