@@ -4,12 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { CursosRoutingModule } from './cursos-routing.module';
 import { CursosFormComponent } from './cursos-form/cursos-form.component';
+import { CursosListComponent } from './cursos-list/cursos-list.component';
 
 
 
 
 @NgModule({
-  declarations: [CursosFormComponent],
+  declarations: [CursosFormComponent, CursosListComponent],
   imports: [
     CommonModule,
     CursosRoutingModule,
