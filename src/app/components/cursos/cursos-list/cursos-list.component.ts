@@ -15,7 +15,7 @@ export class CursosListComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-    let response = this.http.get("http://localhost:8080/");
+    let response = this.http.get("http://localhost:8080/api/clients");
     return response.subscribe((data)=>this.clients = data);
   }
 
