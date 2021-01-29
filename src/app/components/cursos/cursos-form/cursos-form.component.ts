@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConnectionToJavaService } from 'src/app/services/connection-to-java.service';
+import { Client } from '../client';
 
 @Component({
   selector: 'app-cursos-form',
@@ -10,24 +13,30 @@ export class CursosFormComponent implements OnInit {
 
   form!: FormGroup;
   submitted = false;
+  client: Client = new Client("", "", 0);
+  message: any;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private connection: ConnectionToJavaService
   ) { }
 
   ngOnInit(): void {
 
     this.form = this.formBuilder.group({
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
-      sobrenome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+      last_name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
+      age: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(3)]]
     })
 
   }
 
   onSubmit(){
     this.submitted = true;
+    this.client = this.getFormValue();
     if(this.form.valid){
-      console.log('Submitted');
+      this.registerNow();
     }
   }
 
@@ -38,6 +47,16 @@ export class CursosFormComponent implements OnInit {
 
   hasError(field: string){
     return this.form.get(field)?.errors;
+  }
+
+  
+  private registerNow(){
+    let resp = this.connection.doRegistration(this.client);
+    resp.subscribe((data) => this.message = data);
+  }
+
+  private getFormValue(){
+    return this.client = this.form.value;
   }
 
 }

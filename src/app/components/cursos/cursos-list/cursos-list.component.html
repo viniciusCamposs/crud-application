@@ -1,44 +1,110 @@
 <div class="card mt-3">
-    <div class="card-header">
-      <div class="float-left">
-        <h4>Cursos</h4>
-      </div>
-      <div class="float-right">
-        <button type="button" class="btn btn-primary mr-2" [routerLink]="['novo']">Novo Curso</button>
+  <div class="card-header">
+    <div class="float-left">
+      <h4>Cursos</h4>
+    </div>
+    <div class="float-right">
+
+      <div class="row">
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="idClient" name="idClient">
+          <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="button" (click)="findClient()">Search</button>
+        </form>
+  
+  
+  
+        <button type="button" class="btn btn-primary mr-2" routerLink="novo">
+          Novo Curso
+        </button>
         <button type="button" class="btn btn-secondary">Atualizar</button>
       </div>
-    </div>
-    <div class="card-body">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Curso</th>
-            <th>Sobrenome</th>
-            <th>Idade</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let client of clients">
-            <td> {{ client.idClient }} </td>
-            <td> {{ client.name }}</td>
-            <td> {{ client.last_name }}</td>
-            <td> {{ client.age }}</td>
-            <td>
-              <span class="float-right">
-                <button class="btn btn-outline-warning mb-1 btn-sm mr-2">
-                  Atualizar
-                </button>
+      </div>
 
-                <button class="btn btn-outline-danger mb-1 btn-sm">
-                  Remover
-                </button>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Curso</th>
+          <th>Sobrenome</th>
+          <th>Idade</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients">
+          <td>{{ client.idClient }}</td>
+          <td>{{ client.name }}</td>
+          <td>{{ client.last_name }}</td>
+          <td>{{ client.age }}</td>
+          <td>
+            <span class="float-right">
+              <button type="button" class="btn btn-outline-primary mb-1 btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Details
+              </button>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Details about client {{ client.name + " " + client.last_name }}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card mt-3">
+                        <div class="card-header">
+                          <div class="float-left">
+                            <h4>Cursos</h4>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>Id</th>
+                                <th>Curso</th>
+                                <th>Sobrenome</th>
+                                <th>Idade</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{ client.idClient }}</td>
+                                <td>{{ client.name }}</td>
+                                <td>{{ client.last_name }}</td>
+                                <td>{{ client.age }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-outline-warning mb-1 btn-sm mr-2">
+                Atualizar
+              </button>
+
+              <button class="btn btn-outline-danger mb-1 btn-sm" (click)="deleteClient(client.idClient)">
+                Remover
+              </button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
 
 
 

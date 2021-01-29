@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ConnectionToJavaService } from 'src/app/services/connection-to-java.service';
 
 @Component({
   selector: 'app-cursos-list',
@@ -9,14 +9,34 @@ import { Component, OnInit } from '@angular/core';
 export class CursosListComponent implements OnInit {
 
   clients: any;
-
+  idClient!: number;
+  
   constructor(
-    private http: HttpClient
+    private connection: ConnectionToJavaService
   ) { }
 
   ngOnInit(){
-    let response = this.http.get("http://localhost:8080/api/clients");
-    return response.subscribe((data)=>this.clients = data);
+    this.getClients();
   }
+
+  deleteClient(idClient: number){
+    let resp = this.connection.deleteClient(idClient);
+    resp.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  findClient(){
+    let resp = this.connection.getClientById(this.idClient);
+    resp.subscribe((data) => this.clients = data);
+
+  }
+
+  getClients(){
+    let response = this.connection.getClient();
+    response.subscribe((data) => this.clients = data);
+  }
+
+  
 
 }
