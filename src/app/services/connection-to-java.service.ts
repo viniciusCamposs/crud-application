@@ -7,24 +7,30 @@ import { Client } from '../components/cursos/client';
 })
 export class ConnectionToJavaService {
 
+  private baseUrl:string = "http://localhost:8080/api/clients/";
+
   constructor(
     private http: HttpClient
   ) { }
 
   getClient(){
-    return this.http.get("http://localhost:8080/api/clients")
+    return this.http.get(this.baseUrl)
   }
 
   doRegistration(client: Client){
-    return this.http.post("http://localhost:8080/api/clients", client, {responseType: 'text' as 'json'})
+    return this.http.post(this.baseUrl, client, {responseType: 'text' as 'json'})
   }
 
   getClientById(idClient: number){
-    return this.http.get("http://localhost:8080/api/clients/" + idClient)
+    return this.http.get(this.baseUrl + idClient)
   }
 
   deleteClient(idClient: number){
-    return this.http.delete("http://localhost:8080/api/clients/" + idClient)
+    return this.http.delete(this.baseUrl + idClient)
+  }
+
+  updateClient(client: Client){
+    return this.http.put(this.baseUrl, client)
   }
 
 }

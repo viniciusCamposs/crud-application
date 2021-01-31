@@ -1,22 +1,22 @@
 <div class="card mt-3">
   <div class="card-header">
     <div class="float-left">
-      <h4>Cursos</h4>
+      <h4>Clients</h4>
     </div>
     <div class="float-right">
 
       <div class="row">
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="idClient" name="idClient">
-          <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="button" (click)="findClient()">Search</button>
+          <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="button" data-bs-toggle="modal" data-bs-target="#detailsModal" (click)="findClient()">Search</button>
         </form>
   
   
   
         <button type="button" class="btn btn-primary mr-2" routerLink="novo">
-          Novo Curso
+          New Clients
         </button>
-        <button type="button" class="btn btn-secondary">Atualizar</button>
+        <button type="button" class="btn btn-secondary" (click)="updateClients()">Update</button>
       </div>
       </div>
 
@@ -27,80 +27,155 @@
       <thead>
         <tr>
           <th>Id</th>
-          <th>Curso</th>
-          <th>Sobrenome</th>
-          <th>Idade</th>
+          <th>Name</th>
+          <th>Last Name</th>
+          <th>Age</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let client of clients">
-          <td>{{ client.idClient }}</td>
-          <td>{{ client.name }}</td>
-          <td>{{ client.last_name }}</td>
-          <td>{{ client.age }}</td>
+        <tr *ngFor="let cli of clients">
+          <td>{{ cli.idClient }}</td>
+          <td>{{ cli.name }}</td>
+          <td>{{ cli.last_name }}</td>
+          <td>{{ cli.age }}</td>
           <td>
             <span class="float-right">
-              <button type="button" class="btn btn-outline-primary mb-1 btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Details
-              </button>
 
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Details about client {{ client.name + " " + client.last_name }}</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="card mt-3">
-                        <div class="card-header">
-                          <div class="float-left">
-                            <h4>Cursos</h4>
-                          </div>
-                        </div>
-                        <div class="card-body">
-                          <table class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th>Id</th>
-                                <th>Curso</th>
-                                <th>Sobrenome</th>
-                                <th>Idade</th>
-                                <th></th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>{{ client.idClient }}</td>
-                                <td>{{ client.name }}</td>
-                                <td>{{ client.last_name }}</td>
-                                <td>{{ client.age }}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <button class="btn btn-outline-warning mb-1 btn-sm mr-2">
+              <button class="btn btn-outline-warning mb-1 btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#updateModal" name="idClientUpdate" (click)="getidClientUpdate(cli.idClient)">
                 Atualizar
               </button>
 
               <button class="btn btn-outline-danger mb-1 btn-sm" (click)="deleteClient(client.idClient)">
                 Remover
               </button>
+
             </span>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailsModalLabel">Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div class="card mt-3">
+          <div class="card-header">
+            <div class="float-left">
+              <h4>Client</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Name</th>
+                  <th>Last Name</th>
+                  <th>Age</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ iClient.idClient }}</td>
+                  <td>{{ iClient.name }}</td>
+                  <td>{{ iClient.last_name }}</td>
+                  <td>{{ iClient.age }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Update client: {{iClient.name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3 needs-validation border p-3" novalidate [formGroup]="form">
+          <div class="col-sm-12">
+            <label for="name" class="form-label">Fisrt name</label>
+            <input type="text" class="form-control" id="name" placeholder="Fisrt name" formControlName="name"
+              [ngClass]="{ 'is-invalid': submitted && hasError('name') }" [value]="iClient.name"/>
+            <div class="invalid-feedback" *ngIf="hasError('name') && hasError('name')!['required']">
+              Please enter a name.
+            </div>
+            <div class="invalid-feedback" *ngIf="hasError('name')! && hasError('name')!['minlength']">
+              The name must be longer than 3 characters.
+            </div>
+            <div class="invalid-feedback" *ngIf="hasError('name')! && hasError('name')!['maxlength']">
+              The name must be less than 250 characters.
+            </div>
+          </div>
+
+          
+          <div class="col-sm-12">
+            <label for="last_name" class="form-label mt-3">Last Name</label>
+            <input type="text" class="form-control" id="last_name" placeholder="Last Name" formControlName="last_name"
+              [ngClass]="{ 'is-invalid': submitted && hasError('last_name') }" [value]="iClient.last_name"/>
+            <div class="invalid-feedback" *ngIf="hasError('last_name') && hasError('last_name')!['required']">
+              Please enter a last name.
+            </div>
+            <div class="invalid-feedback" *ngIf="hasError('last_name') && hasError('last_name')!['minlength']">
+              Last name must be longer than 3 characters.
+            </div>
+            <div class="invalid-feedback" *ngIf="hasError('last_name') && hasError('last_name')!['maxlength']">
+              The last name must be less than 250 characters.
+            </div>
+          </div>
+  
+          <div class="col-sm-12">
+            <label for="age" class="form-label mt-3">Age</label>
+            <input type="text" class="form-control" id="age" placeholder="Age" formControlName="age"
+              [ngClass]="{ 'is-invalid': submitted && hasError('age') }" [value]="iClient.age"/>
+            <div class="invalid-feedback" *ngIf="hasError('age') && hasError('age')!['required']">
+              Please enter a age.
+            </div>
+            <div class="invalid-feedback" *ngIf="hasError('age') && hasError('age')!['minlength']">
+              Age must be longer than 1 characters.
+            </div>
+            <div class="invalid-feedback" *ngIf="hasError('age') && hasError('age')!['maxlength']">
+              The last name must be less than 4 characters.
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <button class="btn btn-primary mt-2 float-right btn-lg" (click)="onSubmit()">
+              Enviar
+            </button>
+          </div>
+        
+          <div class="col-md-6">
+            <button class="btn btn-info mt-2 btn-lg" (click)="onCancel()">
+              Cancelar
+            </button>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>
 

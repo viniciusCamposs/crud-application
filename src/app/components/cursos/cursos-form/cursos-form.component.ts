@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConnectionToJavaService } from 'src/app/services/connection-to-java.service';
@@ -13,12 +12,11 @@ export class CursosFormComponent implements OnInit {
 
   form!: FormGroup;
   submitted = false;
-  client: Client = new Client("", "", 0);
+  client: Client = new Client();
   message: any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private connection: ConnectionToJavaService
   ) { }
 
