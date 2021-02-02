@@ -1,0 +1,20 @@
+.btn-login{
+    height: 50px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;
+    transition: .4s;
+    border-radius: 4px;
+}
+
+.btn-login:hover{
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.cursor{
+    cursor: pointer;
+}

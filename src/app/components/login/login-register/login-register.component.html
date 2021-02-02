@@ -2,12 +2,12 @@
     <div class="container border">
             <div class="container px-5 pt-5">
                 <h1 class="font-weight-bold py-3">Crud application</h1>
-                <h4>Sign into your account</h4>
+                <h4>Register an account</h4>
                 <form [formGroup]="form">
                     <div class="form-row">
                         <div class="col-lg-12">
                             <input type="text" placeholder="Email-Address" class="form-control my-3 p-4" id="email" formControlName="email"
-                             [ngClass]="{'is-invalid' : submitted && hasError('email')}">
+                            [ngClass]="{'is-invalid' : submitted && hasError('email')}">
                         </div>
                     </div>
                     <div class="form-row">
@@ -23,16 +23,31 @@
                                   </svg>
                             </span>
                             <input [type]="this.showPassword ? 'text' : 'password'" class="form-control p-4" placeholder="Password" id="password" formControlName="password"
-                            [ngClass]="{'is-invalid' : submitted && hasError('password')}">
+                            [ngClass]="{'is-invalid' : submitted && hasError('email')}">
                         </div>
                     </div>
+
                     <div class="form-row">
-                        <div class="col-lg-12">
-                            <button type="button" class="btn1 mt-3 mb-4" (click)="doLogin()">Login</button>
+                        <div class="input-group mb-3 col-lg-12">
+                            <span class="input-group-text cursor" id="basic-addon1" (click)="changeConfPasswordType()">
+                                <svg *ngIf="this.showConfPassword" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg>
+                                <svg *ngIf="!this.showConfPassword" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                                    <path d="M10.79 12.912l-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.027 7.027 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.088z"/>
+                                    <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708l-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6l-12-12 .708-.708 12 12-.708.707z"/>
+                                  </svg>
+                            </span>
+                            <input [type]="this.showConfPassword ? 'text' : 'password'" class="form-control p-4" placeholder="Confirm your password" id="conf_password" formControlName="conf_password" [ngClass]="{'is-invalid' : submitted && hasError('email')}">
                         </div>
                     </div>
-                    <a href="#">Forgot Password?</a>
-                    <p>Don't have an account? <a routerLink="register">Register here!</a></p>
+                    <div class="form-row ">
+                        <div class="col-lg-12">
+                            <button type="button" class="btn-login mt-3 mb-4" (click)="register()">Register</button>
+                        </div>
+                    </div>
+                    <p>You already have an account?<a routerLink=""> Go to the login screen!</a></p>
                 </form>
             </div>
         </div>
